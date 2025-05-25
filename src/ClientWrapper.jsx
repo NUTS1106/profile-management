@@ -1,28 +1,26 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
-import { ThemeContext } from "./hooks/useDarkMode";
+import { useDarkMode, ThemeContext } from "./hooks/useDarkMode";
 import { ThemeProvider } from "styled-components";
 import { userStore } from "./store/redux";
 import App from "./App";
-import { useEffect, useState } from "react";
 import { lightTheme } from "./theme/light";
 import { darkTheme } from "./theme/dark";
+import GlobalStyle from "./theme/GlobalStyle";
 
 const queryClient = new QueryClient();
 
 function ClientWrapper() {
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem("isDark");
-    return saved === "true";
-  });
+  const [isDark, toggleIsDark] = useDarkMode();
 
   const theme = isDark ? darkTheme : lightTheme;
 
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={userStore}>
-        <ThemeContext.Provider value={{ isDark, setIsDark }}>
+        <ThemeContext.Provider value={{ isDark, toggleIsDark }}>
           <ThemeProvider theme={theme}>
+            <GlobalStyle />
             <App />
           </ThemeProvider>
         </ThemeContext.Provider>

@@ -16,7 +16,44 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
+  width: 500px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.formBackground};
+  border: 2px solid
+    ${({ theme }) =>
+      theme.mode == "light" ? theme.buttonBackground : theme.border};
+`;
+
+const Name = styled.h3`
+  font-size: 32px;
+  line-height: 18px;
+`;
+
+const NickName = styled.span`
+  font-size: 18px;
+  margin-bottom: 12px;
+`;
+
+const Infos = styled.span`
+  font-size: 20px;
+  margin-bottom: 1px;
+`;
+
+const Skills = styled.div`
+  font-size: 20px;
+  margin-bottom: 1px;
+`;
+
+const LI = styled.li`
+  list-style: none;
+`;
+
+const UL = styled.ul`
+  font-size: 18px;
 `;
 
 function TeamModal({ index }) {
@@ -30,19 +67,21 @@ function TeamModal({ index }) {
   return (
     <ModalWrapper onClick={offModalClick}>
       <ModalContent>
-        <h3>이름 : {users.name}</h3>
-        <span>닉네임 : {users.username}</span>
-        <span>전화번호 : {users.phone}</span>
-        <span>email : {users.email}</span>
-        <span>포지션 : {users.position}</span>
-        <span>
-          스킬 :{" "}
-          {users.skills.map((skill, index) => (
-            <li key={index}>{skill}</li>
-          ))}
-        </span>
-        <span>주소 : {users.address}</span>
-        <span>회사 : {users.company}</span>
+        <Name>{users.name}</Name>
+        <NickName>{users.username}</NickName>
+        <Infos>전화번호 : {users.phone}</Infos>
+        <Infos>email : {users.email}</Infos>
+        <Infos>포지션 : {users.position}</Infos>
+        <Skills>
+          <Infos>스킬</Infos>
+          <UL>
+            {users.skills.map((skill, index) => (
+              <LI key={index}>{skill}</LI>
+            ))}
+          </UL>
+        </Skills>
+        <Infos>주소 : {users.address}</Infos>
+        <Infos>회사 : {users.company}</Infos>
       </ModalContent>
     </ModalWrapper>
   );

@@ -7,31 +7,69 @@ import { ThemeContext } from "../hooks/useDarkMode";
 import styled from "styled-components";
 
 const HomeWrapper = styled.div`
-  background-color: ${({ theme }) => theme.background};
+  display: flex;
+  height: 100dvh;
+  width: 100vw;
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const UL = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 12px;
+  padding: 12px;
+`;
+
+const LI = styled.li`
+  list-style: none;
+`;
+
+const ULWrapper = styled.div``;
+
+const Button = styled.button`
+  width: 160px;
+  height: 24px;
+  background-color: white;
+  border: 2px solid ${({ theme }) => theme.buttonBackground};
+  border-radius: 6px;
+  color: black;
+`;
+
+const ButtonWrapper = styled.div`
+  text-align: right;
+  padding-bottom: 20px;
+  padding-right: 20px;
 `;
 
 function Home() {
-  useState();
   const users = useSelector((state) => state.users);
-  const { isDark, setIsDark } = useContext(ThemeContext);
-  const onClick = () => {
-    localStorage.setItem("isDark", !isDark);
-    setIsDark((prev) => !prev);
-  };
+  const { toggleIsDark } = useContext(ThemeContext);
   return (
     <HomeWrapper>
-      <button onClick={onClick}>toggle</button>
-      <ul>
-        {users.userlist.map((user, index) => (
-          <li key={user.id}>
-            <TeamCard user={user} />
-          </li>
-        ))}
-      </ul>
-      {users.modaled != null ? (
-        <TeamModal index={users.modaled}></TeamModal>
-      ) : null}
       <AddForm></AddForm>
+      <ContentWrapper>
+        <ULWrapper>
+          <UL>
+            {users.userlist.map((user, index) => (
+              <LI key={user.id}>
+                <TeamCard user={user} />
+              </LI>
+            ))}
+          </UL>
+          {users.modaled != null ? (
+            <TeamModal index={users.modaled}></TeamModal>
+          ) : null}
+        </ULWrapper>
+        <ButtonWrapper>
+          <Button onClick={toggleIsDark}>toggle</Button>
+        </ButtonWrapper>
+      </ContentWrapper>
     </HomeWrapper>
   );
 }

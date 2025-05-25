@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { setUsers } from "./store/redux/userSlice";
 import Home from "./pages/Home";
 

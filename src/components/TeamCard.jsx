@@ -1,31 +1,85 @@
-//팀 카드 컴포넌트
-//user 객체를 prop으로 받아서 렌더링
-import { useDispatch, useSelector } from 'react-redux'
-import './TeamCard.css'
-import { setLiked, onModal } from '../store/redux/userSlice'
+import { useDispatch } from "react-redux";
+import { setLiked, onModal } from "../store/redux/userSlice";
+import styled from "styled-components";
+import { AiFillLike } from "react-icons/ai";
 
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 2px solid ${({ theme }) => theme.border};
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding: 28px 28px 16px 28px;
+`;
 
-function TeamCard({user}){
-    const dispatch=useDispatch()
+const Name = styled.h3`
+  font-size: 24px;
+  line-height: 0.6;
+`;
 
-    function onModalClick(){
-        dispatch(onModal(user.id))
-    }
+const NickName = styled.span`
+  font-size: 18x;
+  margin-bottom: 8px;
+`;
 
-    function onClick(e){
-        e.stopPropagation();
-        dispatch(setLiked(user.id))
-    }
+const Infos = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+`;
 
-    return (
-        <div onClick={onModalClick}>
-            <h3>이름 : {user.name}</h3>
-            <span>닉네임 : {user.username}</span>
-            <span>전화번호 : {user.phone}</span>
-            <button onClick={onClick}>좋아요</button>
-            <span>{user.likes}</span>
-        </div>
-    )
+const InfoStyle = styled.span`
+  font-size: 16px;
+`;
+
+const LikedWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ButtonIcon = styled(AiFillLike)`
+  color: ${({ theme, liked }) =>
+    liked == "true" ? "red" : theme.mode === "light" ? "black" : "white"};
+`;
+
+const LikeButton = styled.button`
+  background-color: transparent;
+  width: 24px;
+  height: 24px;
+  border: none;
+  margin-right: 2px;
+`;
+
+function TeamCard({ user }) {
+  const dispatch = useDispatch();
+
+  function onModalClick() {
+    dispatch(onModal(user.id));
+  }
+
+  function onClick(e) {
+    e.stopPropagation();
+    dispatch(setLiked(user.id));
+  }
+
+  return (
+    <Card onClick={onModalClick}>
+      <Name>{user.name}</Name>
+      <NickName>{user.username}</NickName>
+      <Infos>
+        <InfoStyle>전화번호 : {user.phone}</InfoStyle>
+        <InfoStyle>회사 : {user.company}</InfoStyle>
+      </Infos>
+      <LikedWrapper>
+        <LikeButton onClick={onClick}>
+          <ButtonIcon liked={user.liked ? "true" : "false"} size="20px" />
+        </LikeButton>
+        <span>{user.likes}</span>
+      </LikedWrapper>
+    </Card>
+  );
 }
 
-export default TeamCard
+export default TeamCard;
