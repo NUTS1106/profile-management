@@ -3,6 +3,16 @@ import { styled } from "styled-components";
 import { offModal } from "../store/redux/userSlice";
 
 const ModalWrapper = styled.div`
+  animation: fadeIn 0.1s ease-in forwards;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   position: fixed;
   top: 0;
   left: 0;

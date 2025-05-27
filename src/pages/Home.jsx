@@ -49,7 +49,7 @@ const ButtonWrapper = styled.div`
 
 function Home() {
   const users = useSelector((state) => state.users);
-  const { toggleIsDark } = useContext(ThemeContext);
+  const { toggleIsDark, isDark } = useContext(ThemeContext);
   return (
     <HomeWrapper>
       <AddForm></AddForm>
@@ -67,7 +67,9 @@ function Home() {
           ) : null}
         </ULWrapper>
         <ButtonWrapper>
-          <Button onClick={toggleIsDark}>toggle</Button>
+          <Button onClick={toggleIsDark}>
+            {isDark ? "라이트 모드" : "다크 모드"}
+          </Button>
         </ButtonWrapper>
       </ContentWrapper>
     </HomeWrapper>

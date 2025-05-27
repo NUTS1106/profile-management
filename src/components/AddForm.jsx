@@ -188,7 +188,7 @@ function AddForm() {
         ></Input>
         <Input
           name="username"
-          labelName="닉네임"
+          labelName="유저 이름"
           user={user}
           setUser={setUser}
           type="text"

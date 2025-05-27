@@ -8,6 +8,7 @@ const InputCom = styled.input`
   background-color: ${({ theme }) => theme.inputBackground};
   border: 1px solid ${({ theme }) => theme.inputBorder};
   height: 26px;
+  color: ${({ theme }) => theme.text};
 
   &:focus {
     outline: none;
